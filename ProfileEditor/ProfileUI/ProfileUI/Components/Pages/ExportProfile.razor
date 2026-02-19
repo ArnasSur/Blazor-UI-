@@ -1,0 +1,51 @@
+﻿@using ProfileUI.ProfileEditor
+@inject ProfileCore Profile
+@inject ServerDB server
+@inject FeedingProfile feedingProfile
+
+<h3>Exporting new feeding profile</h3>
+<p>Incert name of new feeding and press export </p>
+
+
+<div class="d-flex flex-column align-items-center gap-3 mt-1" style="width: 100%;">
+    <div style="overflow-y: auto; width: 80%;">
+        <div class="d-flex flex-row gap-1">
+            <input class="form-control" type="text" style="text-align:center" inputmode="text"
+                   autocomplete="off"
+                   @bind-value="profileName"
+                   placeholder="Type profile name..." />
+        </div>
+    </div>
+</div>
+
+<div class="d-flex mt-4 align-items-center" style="width: 100%; justify-content: center;">
+  <div style="width: 40%; ">
+      <Button>
+            <Button Color="ButtonColor.Secondary" @onclick="ExportProfileNow">Export profile</Button>
+      </Button>
+      </div>
+</div>
+
+@code {
+    string profileName = "";
+    [Parameter]
+    public EventCallback OnCloseRequested { get; set; }
+
+    protected virtual async Task ExportProfileNow()
+    {
+        if (!await server.CreateNewTable(profileName))
+            return;
+
+        List<CustomeGridRow> data = new List<CustomeGridRow>();
+        if (feedingProfile.CurrentUsedType == FeedingProfile.ProfileLineType.None)
+        {
+            data = Profile.Data;
+        }
+        else
+        {
+            data = feedingProfile.Data;
+        }
+        await server.UpdateData(profileName, data.Cast<MainGridRow>().ToList());
+        await OnCloseRequested.InvokeAsync();
+    }
+}

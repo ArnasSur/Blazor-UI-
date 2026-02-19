@@ -1,0 +1,112 @@
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\appsettings.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.staticwebassets.runtime.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.staticwebassets.endpoints.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.exe
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.deps.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.runtimeconfig.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.pdb
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Blazor-ApexCharts.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\BlazorBootstrap.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\MathNet.Numerics.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.JSInterop.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.AssemblyInfo.cs
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\bundle\ProfileUI.styles.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\projectbundle\ProfileUI.bundle.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.Up2Date
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\refint\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.pdb
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.genruntimeconfig.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\Brazor UI\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ref\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\appsettings.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.staticwebassets.endpoints.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.staticwebassets.runtime.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.exe
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.deps.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.runtimeconfig.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\ProfileUI.pdb
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Blazor-ApexCharts.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\BlazorBootstrap.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\MathNet.Numerics.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Microsoft.JSInterop.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\MySqlConnector.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.AssemblyInfo.cs
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\bundle\ProfileUI.styles.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\scopedcss\projectbundle\ProfileUI.bundle.scp.css
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.csproj.Up2Date
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\refint\ProfileUI.dll
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.pdb
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ProfileUI.genruntimeconfig.cache
+C:\Users\User\Desktop\Cellula\Drcell\Repos\ProfileEditor\ProfileUI\ProfileUI\obj\Debug\net8.0\ref\ProfileUI.dll

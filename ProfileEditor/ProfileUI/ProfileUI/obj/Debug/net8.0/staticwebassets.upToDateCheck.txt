@@ -1,0 +1,10 @@
+wwwroot\app.css
+wwwroot\bootstrap\bootstrap.min.css
+wwwroot\bootstrap\bootstrap.min.css.map
+wwwroot\favicon.png
+wwwroot\Icons\file_exp.svg
+wwwroot\Icons\file_imp.svg
+wwwroot\Icons\home.svg
+wwwroot\Icons\less.svg
+wwwroot\Icons\zoom-in.svg
+wwwroot\Icons\zoom-out.svg

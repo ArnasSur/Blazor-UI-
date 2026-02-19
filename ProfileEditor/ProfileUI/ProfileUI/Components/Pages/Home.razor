@@ -1,0 +1,856 @@
+﻿@page "/"
+@using ProfileUI.ProfileEditor
+@inject ProfileCore Profile
+@inject ProfileCore CustomeGridRow
+@inject ProfileCore LiveTrendMemory
+@inject FeedingProfile FeedingProfile
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+
+<div class="d-flex flex-row gap-2 mt-1" >
+    <button style="background: transparent; border:none; width: 3%; height: 3%; font-size: clamp(1px, 1vw, 20px);" @onclick="() => OnSHowModalClick(exportModal)">
+            <img src="icons/file_exp.svg" style="width: 100%; height: 100%;" />
+            </button>
+        <Modal @ref="exportModal" UseStaticBackdrop="true" Size="ModalSize.Regular" ShowCloseButton="false">
+            <BodyTemplate>
+                <div style="height:70vh; overflow-y:auto;">
+                    <ExportProfile OnCloseRequested="() => CloseModalFromChild(exportModal)" />
+                </div>
+            </BodyTemplate>
+            <FooterTemplate>
+                <Button Color="ButtonColor.Secondary" @onclick="() => OnHideModalClick(exportModal)">Close</Button>
+            </FooterTemplate>
+        </Modal>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; font-size: clamp(1px, 1vw, 20px);" @onclick="() => OnSHowModalClick(importModal)">
+        <img src="icons/file_imp.svg" style="width: 100%; height: 100%;" />
+    </button>
+    <Modal @ref="importModal" UseStaticBackdrop="true" Size="ModalSize.Regular" ShowCloseButton="false">
+        <BodyTemplate>
+            <div style="height:70vh; overflow-y:auto;">
+                <SearchProfiles OnCloseRequested="() => CloseModalFromChild(importModal)" />
+            </div>
+        </BodyTemplate>
+        <FooterTemplate>
+            <Button Color="ButtonColor.Secondary" @onclick="() => OnHideModalClick(importModal)">Close</Button>
+        </FooterTemplate>
+    </Modal>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; margin-left:20%; font-size: clamp(1px, 1vw, 20px);">
+        <img src="icons/less.svg" style="width: 100%; height: 100%;" @onclick="() => { midPosition = midPosition - 0.1m; }" />
+    </button>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; margin-left:2%; font-size: clamp(1px, 1vw, 20px);">
+        <img src="icons/less.svg" style="width: 100%; height: 100%; transform: rotate(180deg);" @onclick="() => { midPosition = midPosition + 0.1m; }" />
+    </button>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; margin-left:2%; font-size: clamp(1px, 1vw, 20px);">
+        <img src="icons/zoom-in.svg" style="width: 100%; height: 100%;" @onclick="() => { percentageToZoom = percentageToZoom / 2; }" />
+    </button>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; margin-left:2%; font-size: clamp(1px, 1vw, 20px);">
+        <img src="icons/zoom-out.svg" style="width: 100%; height: 100%;" @onclick="() => { percentageToZoom = percentageToZoom * 2;}" />
+    </button>
+    <button style="background: transparent; border:none; width: 3%; height: 3%; margin-left:2%; font-size: clamp(1px, 1vw, 20px);">
+        <img src="icons/home.svg" style="width: 100%; height: 100%;" @onclick="() => { ResetZoom(); }" />
+    </button>
+</div>
+<style>
+    /* Chrome, Edge, Safari */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
+<div class="d-flex mt-5" style="width: 40%;">
+    <fieldset class=" p-4 border rounded" style="width: 62%; margin-top: -1%; position: relative;">
+        <legend style="width: 40%; font-size: clamp(2px, 1.5vw, 22px); position: absolute; top: -7%; left: 50%; transform: translateX(-120%); background: white; padding: 0 1%; "> Mass profile line type</legend>
+        <div class="d-flex flex-column gap-3 justify-content-center" style="width: 100%;">
+            <div class="d-flex flex-row gap-1" style="width: 100%;">
+                <div class="d-flex align-items-center gap-2" style="width: 85%;">
+                    <input type="radio" id="none" name="massProfile" style="transform: scale(1.3);" checked="checked" @onclick="() => ProfileTypeChanged(0)" />
+                    <label for="none" style="font-size: clamp(1px, 1vw, 22px);">None</label>
+                </div>
+                <div class="d-flex align-items-center gap-2" style="width: 85%;">
+                    <input type="radio" id="linear" name="massProfile" style="transform: scale(1.3);" @onclick="() => ProfileTypeChanged(1)" />
+                    <label for="linear" style="font-size: clamp(1px, 1vw, 22px);">Linear</label>
+                </div>
+
+                <div class="d-flex align-items-center gap-2" style="width: 120%;">
+                    <InputCheckbox @bind-Value="FeedingProfile.UseIntercept"
+                                   style="transform: scale(1.6); cursor: pointer; margin-right: 0.3rem;"
+                                   @bind-Value:after="() => OnCommitLineType(FeedingProfile.ProfileLineType.Linear)" />
+                    <span style="font-size: clamp(2px, 1vw, 22px);">Set Intercept</span>
+                </div>
+                <div class="d-flex align-self:center" style="width: 50%;">
+                    <input type="number"
+                           style="
+               text-align:center;
+               align-self:center;
+               border-radius: 50px;
+               padding: 0.4rem 0.8rem;
+               border: 1px solid #ccc;
+               box-shadow: 0 0 8px rgba(0,0,0,0.15);
+               outline: none;
+           "
+                           inputmode="numeric"
+                           pattern="[0-9]*"
+                           min="0" max="1000" step="1"
+                           value="@FeedingProfile.InterceptValue"
+                           @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.Linear)"
+                           @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.Linear)"
+                           @oninput="e => OnProfileTypeValueChanged(FeedingProfile.ProfileLineType.Linear, e.Value)" />
+                </div>
+
+            </div>
+            <div class="d-flex flex-row gap-1" style="width: 100%;">
+
+                <div class="d-flex flex-column align-items-center gap-2" style="width: 100%;">
+                    <div class="d-flex flex-row align-items-center gap-3" style="width: 100%;">
+                        <input type="radio" id="polynomial" name="massProfile" style="transform: scale(1.3);" @onclick="() => ProfileTypeChanged(2)" />
+                        <label for="polynomial" style="font-size: clamp(1px, 1vw, 22px);">Polynomial</label>
+                    </div>
+                    <span style="align-self:flex-start; padding: 0 4%; font-size: clamp(2px, 1vw, 20px);">Order</span>
+                    <div style=" display: flex; align-self:flex-start; padding: 0 4%; gap: 0;">
+                        <!-- Minus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-right: none; border-radius: 50px 0 0 50px;
+                                         width: 40px; height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => { OrderValue--; OnCommitLineType(FeedingProfile.ProfileLineType.Polynomial); }">
+                            –
+                        </button>
+                        <!-- Middle input (no arrows) -->
+                        <input type="number" style=" width: 80px; text-align: center; border: 1px solid #ccc; border-left: none; border-right: none;
+                                     height: 40px; outline: none; -moz-appearance: textfield; appearance: textfield; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                               min="1" max="@(Profile.Data.Count - 1)" step="1"
+                               @bind-value="@OrderValue"
+                               @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.Polynomial)"
+                               @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.Polynomial)" />
+                        <!-- Plus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-left: none; border-radius: 0 50px 50px 0; width: 40px;
+                                      height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => {OrderValue++;  OnCommitLineType(FeedingProfile.ProfileLineType.Polynomial);}">+</button>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column align-items-center gap-2" style="width: 120%;">
+                    <div class="d-flex flex-row align-items-center gap-3" style="width: 100%;">
+                        <input type="radio" id="average" name="massProfile" style="transform: scale(1.3);" @onclick="() => ProfileTypeChanged(3)" />
+                        <label for="average" style="font-size: clamp(1px, 1vw, 22px);">Moving Average</label>
+                    </div>
+                    <span style="align-self:flex-start; padding: 0 4%; font-size: clamp(2px, 1vw, 20px);">Period</span>
+                    <div style=" display: flex; align-self:flex-start; padding: 0 4%; gap: 0;">
+                        <!-- Minus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-right: none; border-radius: 50px 0 0 50px;
+                                         width: 40px; height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => {movingAverageValue--; OnCommitLineType(FeedingProfile.ProfileLineType.MovingAverage);} ">–</button>
+                        <!-- Middle input (no arrows) -->
+                        <input type="number" style=" width: 80px; text-align: center; border: 1px solid #ccc; border-left: none; border-right: none;
+                                     height: 40px; outline: none; -moz-appearance: textfield; appearance: textfield; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                               min="1" max="100000" step="1"
+                               @bind-value="@movingAverageValue"
+                               @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.MovingAverage)"
+                               @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.MovingAverage)"/>
+                        <!-- Plus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-left: none; border-radius: 0 50px 50px 0; width: 40px;
+                                      height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => { movingAverageValue++; OnCommitLineType(FeedingProfile.ProfileLineType.MovingAverage);}">
+                            +
+                        </button>
+                    </div>
+                    @*<input type="number" style="width: 50%;" min="1" max="100000" step="1"
+                           @bind-value="movingAverageValue"
+                           @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.MovingAverage)"
+                           @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.MovingAverage)" />*@
+                </div>
+
+                <div class="d-flex flex-column align-items-center gap-2" style="width: 90%;"> 
+                    <div class="d-flex flex-row align-items-center gap-3" style="width: 100%;"> 
+                        <input type="radio" id="smoothing" name="massProfile" style=" transform: scale(1.3);" @onclick="() => ProfileTypeChanged(4)" />
+                        <label for="smoothing" style="font-size: clamp(1px, 1vw, 22px);">Smoothing</label> 
+                    </div>
+                    <span style="align-self:flex-start; padding: 0 4%; font-size: clamp(2px, 1vw, 20px);">Factor</span>
+                    <div style=" display: flex; align-items: center; justify-content: center; gap: 0;">
+                        <!-- Minus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-right: none; border-radius: 50px 0 0 50px;
+                                         width: 40px; height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => { smoothingFactor--; OnCommitLineType(FeedingProfile.ProfileLineType.Smoothing); }">
+                            –
+                        </button>
+                        <!-- Middle input (no arrows) -->
+                        <input type="number" style=" width: 80px; text-align: center; border: 1px solid #ccc; border-left: none; border-right: none;
+                                     height: 40px; outline: none; -moz-appearance: textfield; appearance: textfield; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                               min="0" max="100" step="1"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                               @bind-value="@smoothingFactor"
+                               @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.Smoothing)"
+                               @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.Smoothing)"
+                               @oninput="e => OnProfileTypeValueChanged(FeedingProfile.ProfileLineType.Smoothing, e.Value)" />
+
+                        <!-- Plus -->
+                        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-left: none; border-radius: 0 50px 50px 0; width: 40px;
+                                      height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                                @onclick="() => { smoothingFactor++; OnCommitLineType(FeedingProfile.ProfileLineType.Smoothing); }">
+                            +
+                        </button>
+                    </div>
+                    @* <input type="number"
+                          style="
+           width: 80%;
+           text-align: center;
+           border-radius: 50px;
+           padding: 0.4rem 1.2rem;
+           border: 1px solid #ccc;
+           box-shadow: 0 0 8px rgba(0,0,0,0.15);
+           outline: none;
+           -moz-appearance: textfield;
+       "
+                        min="0" max="100" step="1" 
+                    value="@FeedingProfile.SmoothingFactor" 
+                    @onfocusout="() => OnCommitLineType(FeedingProfile.ProfileLineType.Smoothing)" 
+                    @onkeydown="e => OnKeyDownLineType(e, FeedingProfile.ProfileLineType.Smoothing)" 
+                    @oninput="e => OnProfileTypeValueChanged(FeedingProfile.ProfileLineType.Smoothing, e.Value)" />*@
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="d-flex flex-row gap-2 mt-3" style="width: 25%;">
+    <div class="d-flex align-items-center gap-2" style="width: 80%;">
+        <InputCheckbox @bind-Value="FeedingProfile.UseOffset" style="transform: scale(1.6); cursor: pointer; margin-right: 0.3rem; margin-left: 0.6rem;"
+                       @bind-Value:after="ApplyOffsetClicked" />
+        <span style="font-size: clamp(2px, 1vw, 22px);">Apply offset</span>
+    </div>
+    <div class="d-flex align-items-center" style="width: 100%;">
+        <label style="width: 100%;font-size: clamp(2px, 1vw, 20px); text-align: center">Offset for feed profile in percentage (%)</label>
+    </div>
+    <div style="width: 105%; display: flex; align-items: center; justify-content: center; gap: 0;">
+        <!-- Minus -->
+        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-right: none; border-radius: 50px 0 0 50px;
+                                         width: 40px; height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                @onclick="() => { FeedingProfile.FeedingProfileOffset--; OnCommitOffset(); }">
+            –
+        </button>
+        <!-- Middle input (no arrows) -->
+        <input type="number" style=" width: 80px; text-align: center; border: 1px solid #ccc; border-left: none; border-right: none;
+                                     height: 40px; outline: none; -moz-appearance: textfield; appearance: textfield; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+               inputmode="numeric"
+               pattern="[0-9]*"
+               @bind-value="@FeedingProfile.FeedingProfileOffset"
+               @onfocusout="() => OnCommitOffset()"
+               @onkeydown="e => OnKeyDownOffset(e)" />
+
+        <!-- Plus -->
+        <button type="button" style=" background: #ccc; border: 1px solid #ccc; border-left: none; border-radius: 0 50px 50px 0; width: 40px;
+                                      height: 40px; font-size: 22px; cursor: pointer; box-shadow: 0 0 8px rgba(0,0,0,0.15);"
+                @onclick="() => { FeedingProfile.FeedingProfileOffset++; OnCommitOffset();}">
+            +
+        </button>
+    </div>
+</div>
+
+<div class="d-flex flex-row  gap-3 mt-3" style="width: 37%;">
+    <div class="d-flex flex-column gap-2 " style="width: 70%;">
+        <button type="button" style="border-radius: 25px;background: #ddd;  border: 1px solid #ccc; text-align: center; width: 100%;font-size: clamp(2px, 1vw, 22px);" @onclick="AddRow">➕ Add row </button>
+        <button type="button" style="border-radius: 25px;background: #ddd;  border: 1px solid #ccc; text-align: center; width: 100%;font-size: clamp(2px, 1vw, 22px);" @onclick="ClearTable"> Clear Data </button>
+    </div>
+    <fieldset class="mt-3 border rounded" style="width: 100%;"> 
+        <legend style="width: 10%; font-size: clamp(2px, 1.5vw, 22px); position: absolute; margin-top:-1%; background: white; padding: 0 1%;">Manual type change</legend>
+<div class="d-flex flex-row mt-3 justify-content-center align-items-center gap-5" style="width: 100%;"> 
+    <div class="d-flex align-items-center gap-2">
+                <input type="radio" id="local" name="typeChange"  @onclick="() => localChange = true" style="transform: scale(1.6);" />
+                <label for="local" style="font-size: clamp(1px, 1vw, 22px);">Local</label> 
+    </div> 
+    <div class="d-flex align-items-center gap-2">
+                <input type="radio" id="whole" name="typeChange" checked="checked" @onclick="() => localChange = false" style="transform: scale(1.6);" />
+                <label for="whole" style="font-size: clamp(1px, 1vw, 22px);">Whole</label> 
+    </div>
+    </div>
+            @*<InputRadioGroup class="d-flex flex-md-row" style="width: 100%; gap: 100%" @bind-Value="localChange">
+                <div style="display:flex; align-items:center; gap: 20%;">
+                    <InputRadio Value="true" style="transform: scale(1.4);" />
+                    <label style="font-size: clamp(1px, 1vw, 20px);">Local</label>
+                </div>
+                <div style="display:flex; align-items:center; gap: 20%;">
+                    <InputRadio Value="false" style="transform: scale(1.4);" />
+                    <label style="font-size: clamp(1px, 1vw, 20px);">Whole</label>
+                </div>
+            </InputRadioGroup>*@ 
+    
+    </fieldset>
+    <div class="d-flex flex-column gap-1 mt-3" style="width: 100%;">
+    </div>
+</div>
+
+
+<style>
+    .editing-row td {
+        background-color: rgba(255, 198, 6) !important;
+    }
+
+    .error-row td {
+        background-color: rgb(255, 51, 51) !important;
+    }
+
+    .newLine-row td {
+        background-color: rgb(128, 128, 128) !important;
+    }
+
+    @@keyframes land {
+        0% {
+            background-color: rgba(40,167,69,0.35);
+        }
+
+        100% {
+            background-color: transparent;
+        }
+    }
+
+    .landed-row td {
+         background-color: rgb(255, 255, 0) !important;
+         animation: land 0.6s ease-out;
+    }
+
+</style>
+
+<div class="d-flex flex-row gap-2 mt-1" style="width: 100%;">
+<div style="height: 50vh; overflow-y: auto; width: 25%;">
+    <table class="table table-bordered mt-xl-4" style="width: 100%; font-size: clamp(2px, 1vw, 20px); text-align: center;">
+        <thead style="position: sticky; top: 0; background: white; z-index: 1;">
+            <tr>
+                <th>Duration (h)</th>
+                <th>Mass (g)</th>
+                <th>Speed (g/s)</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var row in Profile.Data)
+            {
+                <tr @key="row"
+                id="@row.RowId"
+                        class="fixed-row @(
+                    row.JustMoved ? "landed-row" :
+                    row.IsErrorInLine ? "error-row" :
+                    row.IsNewLine ? "newLine-row" :
+                    row.IsEditing || row.IsSelected ? "editing-row" : ""
+        )">
+                    <td>
+                    <input class="form-control"
+                           type="number"
+                           step="any"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                           value="@row.Col1"
+                           @onfocus="() => row.IsEditing = true"
+                           @onblur="() => row.IsEditing = false"
+                               @onfocusout="() => OnCommit(row, ProfileCore.GridColumn.Col1)" 
+                               @onkeydown="e => OnKeyDown(e, row, ProfileCore.GridColumn.Col1)"
+                           @oninput="e => OnDurationChanged(row, ProfileCore.GridColumn.Col1, e.Value)"
+                           style="text-align:center" />
+                    </td>
+                    <td>
+                        <input class="form-control"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                           value="@row.Col2"
+                           type="number"
+                           @onfocus="() => row.IsEditing = true"
+                           @onblur="() => row.IsEditing = false"
+                               @onfocusout="() => OnCommit(row, ProfileCore.GridColumn.Col2)"
+                               @onkeydown="e => OnKeyDown(e, row, ProfileCore.GridColumn.Col2)"
+                               @oninput="e => OnDurationChanged(row, ProfileCore.GridColumn.Col2, e.Value)"
+                               style="text-align:center" />
+                    </td>
+                    <td>
+                        <input class="form-control"
+                               inputmode="numeric"
+                               pattern="[0-9]*"
+                           value="@row.Col3"
+                           type="number"
+                           @onfocus="() => row.IsEditing = true"
+                           @onblur="() => row.IsEditing = false"
+                               @onfocusout="() => OnCommit(row, ProfileCore.GridColumn.Col3)"
+                               @onkeydown="e => OnKeyDown(e, row, ProfileCore.GridColumn.Col3)"
+                           @oninput="e => OnDurationChanged(row, ProfileCore.GridColumn.Col3, e.Value)"
+                               style="text-align:center" />
+                </td>
+                    <td>
+                        <button class="btn btn-sm btn-danger"
+                                @onclick="() => RemoveRow(row)">
+                            ✖
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+    <div class="d-flex flex-column gap-2" style="flex-grow: 1; margin-left: 1rem; margin-top: -17%;">
+        <div style="width: 100%; height: 43vh;">
+            <iframe src="@iframeUrlMass" 
+                    width="100%"
+                    height="100%"
+                    style="border:none;">
+            </iframe>
+        </div>
+        <div style="width: 100%; height: 43vh;">
+            <iframe src="@iframeUrlSpeed"
+                    width="100%"
+                    height="100%"
+                    style="border:none;">
+            </iframe>
+
+        </div>
+    </div>
+</div>
+@*<ApexChart TItem="CustomeGridRow"
+                   @ref="chart2" http://192.168.1.27:88/d-solo/adftsgp/speed-dashboard?orgId =1&from =1771054663297&to =1771076263297&timezone =browser&refresh =500ms&panelId =panel-1&__feature.dashboardSceneSolo =true
+                   Title="Speed"> http://192.168.1.27:88/d-solo/adl4pps/new-dashboard?orgId =1&from =now-24&to =now&timezone =browser&panelId =panel-1&__feature.dashboardSceneSolo =true&refresh =500ms
+            <ApexPointSeries TItem="CustomeGridRow"
+                             Items="@FeedingProfile.Data"
+                             Name="Profile Speed, g/s"
+                             SeriesType="SeriesType.Scatter"
+                             XValue="e => e.Col1"
+                             YValue="e => e.Col3" 
+                             OrderByDescending="e=>e.Y" />
+
+            <ApexPointSeries TItem="CustomeGridRow"
+                             Items="@Profile.Data"
+                             Name="Points Speed, g/s"
+                             SeriesType="SeriesType.Scatter"
+                             XValue="e => e.Col1"
+                             YValue="e => e.Col3"
+                             OrderByDescending="e=>e.Y" />
+
+        </ApexChart>*@
+<script>
+    window.scrollRowIntoView = function (rowId) {
+        const el = document.getElementById(rowId);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    };
+</script>
+
+@code {
+    string iframeUrlMass;
+    string iframeUrlSpeed;
+
+    decimal minValueX => Profile.Data.Count == 0 ? 0 : Profile.Data.Min(x => x.Col1);
+    decimal maxValueX => Profile.Data.Count == 0 ? 0 : Profile.Data.Max(x => x.Col1);
+    decimal percentageToZoom
+    {
+        get => currentPercentage;
+        set
+        {
+            decimal newValue = Math.Clamp(value, 1, 100);
+            if (newValue != currentPercentage)
+            {
+                currentPercentage = newValue;
+                UpdateGrafanaRange();
+            }
+        }
+    }
+    decimal currentPercentage = 100; 
+    decimal midPosition
+    {
+        get => _midPosition;
+        set
+        {
+            // Clamp between 0 (left) and 1 (right)
+            decimal newValue = Math.Clamp(value, 0m, 1m);
+            if (newValue != _midPosition)
+            {
+                _midPosition = newValue;
+                UpdateGrafanaRange();
+            }
+        }
+    }
+    decimal _midPosition = 0.5m;
+    void ResetZoom()
+    {
+        midPosition = 0.5m;
+        percentageToZoom = 100;
+        UpdateGrafanaRange();
+    }
+    void UpdateGrafanaRange() 
+    {
+        decimal range = maxValueX - minValueX;
+        decimal window = range * percentageToZoom / 100;
+        // If fully zoomed out, always center
+        decimal center;
+        if (percentageToZoom >= 100)
+        {
+            center = minValueX + range / 2;
+        }
+        else
+        {
+            // Move center according to midPosition (0=left, 1=right)
+            center = minValueX + range * _midPosition;
+        }
+        decimal from = center - window / 2;
+        decimal to = center + window / 2;
+        // Clamp to data bounds
+        if (from < minValueX)
+        {
+            from = minValueX;
+            to = from + window;
+        }
+        if (to > maxValueX)
+        {
+            to = maxValueX;
+            from = to - window;
+        }
+
+        if (window >= range)
+        {
+            from = minValueX;
+            to = maxValueX;
+        }
+
+        if (window == 0)
+        {
+            from = minValueX - 1;
+            to = maxValueX + 1;
+        }
+        UpdateMassIframeUrl(from, to);
+        UpdateSpeedIframeUrl(from, to);
+    }
+    void ZoomInX()
+    {
+        percentageToZoom = percentageToZoom / 2;
+    }
+    void UpdateMassIframeUrl(decimal from, decimal to)
+    {
+        var refreshToken = Guid.NewGuid();
+        iframeUrlMass =
+        $"http://192.168.1.27:88/d-solo/adl4pps/mass-graph" +
+        $"?orgId=1" +
+        $"&var-minX={from.ToString(System.Globalization.CultureInfo.InvariantCulture)}" +
+        $"&var-maxX={to.ToString(System.Globalization.CultureInfo.InvariantCulture)}" +
+        $"&panelId=panel-1" +
+        $"&__feature.dashboardSceneSolo=true" +
+        $"&refreshToken={refreshToken}";
+    }
+    void UpdateSpeedIframeUrl(decimal from, decimal to)
+    {
+        var refreshToken = Guid.NewGuid();
+        iframeUrlSpeed =
+            $"http://192.168.1.27:88/d-solo/adftsgp/speed-dashboard"+
+             $"?orgId=1"+
+             $"&var-minX={from.ToString(System.Globalization.CultureInfo.InvariantCulture)}" +
+             $"&var-maxX={to.ToString(System.Globalization.CultureInfo.InvariantCulture)}" +
+             $"&panelId=panel-1" +
+             $"&__feature.dashboardSceneSolo=true" +
+             $"&refreshToken={refreshToken}";
+    }
+
+    private Modal importModal;
+    private Modal exportModal;
+    private async Task OnSHowModalClick(Modal modal)
+    {
+        await modal?.ShowAsync();
+    }
+    private async Task OnHideModalClick(Modal modal)
+    {
+        await modal?.HideAsync();
+        UpdateGrafanaRange();
+    }
+    private async Task CloseModalFromChild(Modal modal)
+    {
+        await modal.HideAsync();
+        UpdateGrafanaRange();
+    }
+
+    private bool localChange { get; set; } = false;
+    private ApexChart<CustomeGridRow> chart1 { get; set; } = new();
+    private ApexChart<CustomeGridRow> chart2 { get; set; } = new();
+    private ApexChartOptions<CustomeGridRow> chart2_options = new ApexCharts.ApexChartOptions<CustomeGridRow>()
+    {
+        Markers = new Markers
+        {
+            Size = 6,
+            FillOpacity = 1,
+            StrokeWidth = 2,
+            StrokeColors = new List<string> { "#FFFFFF" },
+            Colors = new List<string> { "#0000FF" },
+            StrokeOpacity = 1d
+        }
+    };
+    private ApexChartOptions<CustomeGridRow> chart1_options = new ApexCharts.ApexChartOptions<CustomeGridRow>()
+    {
+        Markers = new Markers
+        {
+            Size = 6,
+            FillOpacity = 1,
+            StrokeWidth = 2,
+            StrokeColors = new List<string> { "#FFFFFF" },
+            Colors = new List<string> { "#0000FF" },
+            StrokeOpacity = 1d
+        }
+    };
+    int OrderMax => Math.Max(1, Profile.Data.Count - 1);
+    int OrderValue
+    {
+        get => FeedingProfile.PolynomialValue;
+        set { FeedingProfile.PolynomialValue = Math.Clamp(value, 1, OrderMax); 
+            profileTypeValueChanged = true;}
+    }
+    int movingAverageValue
+    {
+        get => FeedingProfile.MovingAveragePeriod;
+        set
+        {
+            FeedingProfile.MovingAveragePeriod = Math.Clamp(value, 1, 100000);
+            profileTypeValueChanged = true;
+        }
+    }
+    decimal smoothingFactor
+    {
+        get => FeedingProfile.SmoothingFactor;
+        set
+        {
+            FeedingProfile.SmoothingFactor = Math.Clamp(value, 0, 100);
+            profileTypeValueChanged = true;
+        }
+    }
+
+    public bool CommitTriggeredByEnter { get; set; }
+    private async Task ProfileTypeChanged(int type)
+    {
+        FeedingProfile.CurrentUsedType = (FeedingProfile.ProfileLineType)type;
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+    protected override void OnInitialized()
+    {
+        UpdateGrafanaRange();
+    }
+
+    private async Task LoadCsv(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file == null)
+            return;
+
+        using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10MB limit
+        using var reader = new StreamReader(stream);
+
+        Profile.Data.Clear();
+
+        while (true)
+        {
+            var line = await reader.ReadLineAsync();
+            if (line == null) break;           // end of file
+            if (string.IsNullOrWhiteSpace(line)) continue;
+
+            var parts = line.Split(',',';');       // or ';' depending on CSV
+
+            if (parts.Length < 3) continue;    // skip invalid lines
+
+            Profile.Data.Add(new CustomeGridRow
+            {
+                Col1 = Math.Round(decimal.Parse(parts[0]), 4),
+                Col2 = Math.Round(decimal.Parse(parts[1]), 2),
+                Col3 = Math.Round(decimal.Parse(parts[2]), 2),
+            });
+        }
+        Profile.RecalculateData();
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+    bool profileTypeValueChanged = false;
+    async Task OnProfileTypeValueChanged(FeedingProfile.ProfileLineType type, object value)
+    {
+        if (!decimal.TryParse(value?.ToString(), out decimal parsedValue))
+        {
+            return;
+        }
+
+        switch (type)
+        {
+            case FeedingProfile.ProfileLineType.Linear:
+                FeedingProfile.InterceptValue = parsedValue;
+                break;
+            case FeedingProfile.ProfileLineType.MovingAverage:
+                break;
+            case FeedingProfile.ProfileLineType.Smoothing:
+                FeedingProfile.SmoothingFactor = parsedValue;
+                break;
+            case FeedingProfile.ProfileLineType.Polynomial:
+                break;
+        }
+        profileTypeValueChanged = true;
+    }
+    async Task OnDurationChanged(CustomeGridRow row, ProfileCore.GridColumn column, object value)
+    {
+        if (!decimal.TryParse(value?.ToString(), out decimal parsedValue))
+        {
+            row.IsErrorInLine = true;
+            return;
+        }
+        row.IsErrorInLine = false;
+        row.IsNewLine = false;
+        row.RowChanged = true;
+
+        switch (column)
+        {
+            case ProfileCore.GridColumn.Col1:
+                row.Col1 = parsedValue;
+                break;
+            case ProfileCore.GridColumn.Col2:
+                row.Col2 = parsedValue;
+                break;
+            case ProfileCore.GridColumn.Col3:
+                row.Col3 = parsedValue;
+                break;
+        }
+        Profile.RowUpdated(row);
+    }
+    bool lineTypeEnterPressed = false;
+    async Task OnCommitLineType(FeedingProfile.ProfileLineType type)
+    {
+        if (lineTypeEnterPressed || !profileTypeValueChanged)
+        {
+            lineTypeEnterPressed = false;
+            return;
+        }
+        profileTypeValueChanged = false;
+        if (type == FeedingProfile.CurrentUsedType)
+        {
+            FeedingProfile.RecalculateFeedingProfile();
+            UpdateGrafanaRange();
+        }
+    }
+    async Task OnKeyDownLineType(KeyboardEventArgs e, FeedingProfile.ProfileLineType type)
+    {
+        if (e.Key == "Enter")
+        {
+            lineTypeEnterPressed = true;
+            profileTypeValueChanged = false;
+            if (type == FeedingProfile.CurrentUsedType)
+            {
+                FeedingProfile.RecalculateFeedingProfile();
+                UpdateGrafanaRange();
+            }
+        }
+    }
+    bool offsetEnterPressed = false;
+    async Task OnCommitOffset()
+    {
+        if (offsetEnterPressed)
+        {
+            offsetEnterPressed = false;
+            return;
+        }
+        if (FeedingProfile.UseOffset)
+        {
+            FeedingProfile.RecalculateFeedingProfile();
+            UpdateGrafanaRange();
+        }
+    }
+    async Task ApplyOffsetClicked()
+    {
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+    async Task OnKeyDownOffset(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            offsetEnterPressed = true;
+            if (FeedingProfile.UseOffset)
+            {
+                FeedingProfile.RecalculateFeedingProfile();
+                UpdateGrafanaRange();
+            }
+        }
+    }
+
+    async Task OnKeyDown(KeyboardEventArgs e, CustomeGridRow row, ProfileCore.GridColumn column)
+    {
+        if (e.Key == "Enter")
+        {
+            row.RowChanged = true;
+            await OnCommit(row, column);
+        }
+    }
+
+    async Task OnCommit(CustomeGridRow row, ProfileCore.GridColumn column)
+    {
+        if (row.CommitInProgress || !row.RowChanged)
+        {
+            return;
+        }
+        row.RowChanged = false;
+        row.CommitInProgress = true;
+        row.JustMoved = Profile.SortData(row);
+        await InvokeAsync(StateHasChanged);
+
+        await Task.Delay(300);
+        row.JustMoved = false;
+
+        row.CommitInProgress = false;
+        await InvokeAsync(StateHasChanged);
+        if (row.IsEditing)
+        {
+            await Task.Yield(); // <-- critical
+
+            // Scroll the new row into view
+            await JS.InvokeVoidAsync("scrollRowIntoView", row.RowId);
+        }
+        if (!Profile.RecalculateData(row, column, localChange))
+            row.IsErrorInLine = true;
+
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+
+    async Task ClearTable()
+    {
+        Profile.ClearData();
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+    async Task RemoveRow(CustomeGridRow row)
+    {
+        Profile.Remove(row);
+        Profile.RecalculateData();
+        FeedingProfile.RecalculateFeedingProfile();
+        UpdateGrafanaRange();
+    }
+    async Task AddRow()
+    {
+        // Deselect all other rows
+        foreach (var r in Profile.Data)
+        {
+            r.IsSelected = false;
+        }
+        var row = new CustomeGridRow
+        {
+            Col1 = -1,
+            Col2 = -1,
+            Col3 = -1,
+            IsNewLine = true,
+            IsSelected = true,
+            RowId = Guid.NewGuid().ToString()
+        };
+
+        Profile.Add(row);
+        // Force render and yield so DOM exists
+        await InvokeAsync(StateHasChanged);
+        await Task.Yield(); // <-- critical
+
+        // Scroll the new row into view
+        await JS.InvokeVoidAsync("scrollRowIntoView", row.RowId);
+        UpdateGrafanaRange();
+    }
+}

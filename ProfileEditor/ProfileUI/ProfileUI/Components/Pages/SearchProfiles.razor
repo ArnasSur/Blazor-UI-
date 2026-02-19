@@ -1,0 +1,148 @@
+﻿@using ProfileUI.ProfileEditor
+@inject ProfileCore Profile
+@inject ServerDB server
+@inject FeedingProfile feedingProfile
+
+<h3>Existing feeding profiles</h3>
+<p>Select profile and press edit if you want to edit profile</p>
+
+<style>
+
+    .selected-input {
+        background-color: rgba(255, 198, 6) !important; /* bootstrap primary color */
+        color: black !important;
+        border-color: #0d6efd !important;
+    }
+
+    input[readonly] {
+        cursor: default !important; /* always arrow, even on hover/focus */
+    }
+</style>
+
+<div class="d-flex flex-column align-items-center gap-3 mt-1" style="width: 100%; height: 59vh">
+    <div style="overflow-y: auto; width: 80%;">
+        <label style="font-size: clamp(1px, 1vw, 20px);">Search profile by name</label>
+        <div class="d-flex flex-row gap-1">
+            <input class="form-control" type="text" style="text-align:center" inputmode="text"
+                   autocomplete="off"
+                   @bind="searchText" @bind:event="oninput" placeholder="Type to search..." />
+            <button class="btn btn-secondary" @onclick="() => searchText = string.Empty">Clear</button>
+        </div>
+    </div>
+    <div style="height: 45vh; overflow-y: auto; width: 80%;">
+        <table class="table table-bordered mt-xl-4" style="width: 100%; font-size: clamp(2px, 1vw, 20px); text-align: center;">
+            <thead style="position: sticky; top: 0; background: white; z-index: 1;">
+            <tr>
+                <th>Name of feed profile</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+                @foreach (var row in FilteredNames)
+                {
+                    <tr @key="row" id="@row.RowId" @onclick="() => RowSelected(row)">
+                        <td>
+                            <input class="form-control @(row.IsSelected ? "selected-input" : "")"
+                                   type="text"
+                                   readonly
+                                   value="@row.Name"
+                                   style="text-align:center" />
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+</div>
+
+<div class="d-flex justify-content-between mt-1" style="width: 100%;">
+    <div>
+        <Button Color="ButtonColor.Secondary" @onclick="ProfileChossen"> Edit profile </Button>
+    </div>
+    <div>
+        <Button Color="ButtonColor.Secondary" @onclick="DeleteSelectedProfile"> Delete profile </Button>
+    </div>
+</div>
+
+@code {
+    List<CustomeProfileRow> names = new List<CustomeProfileRow>();
+    private string GetRowClass(CustomeProfileRow row) => row.IsSelected ? "table-primary" : "";
+    string searchText = "";
+    [Parameter]
+    public EventCallback OnCloseRequested { get; set; }
+
+    IEnumerable<CustomeProfileRow> FilteredNames =>
+        string.IsNullOrWhiteSpace(searchText)
+            ? names
+            : names.Where(n => n.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+
+    private async Task RowSelected(CustomeProfileRow selectedRow)
+    {
+        foreach (var row in names)
+        {
+            // Toggle only the clicked row; unselect all others
+            row.IsSelected = row == selectedRow ? !row.IsSelected : false;
+        }
+
+        // Optional: notify selection change
+        var selected = names.FirstOrDefault(r => r.IsSelected);
+        if (selected != null)
+            Console.WriteLine($"Selected row: {selected.Name}");
+        else
+            Console.WriteLine("No row selected");
+
+        StateHasChanged();
+    }
+
+    private async Task DeleteSelectedProfile()
+    {
+        var selectedRow = names.FirstOrDefault(row => row.IsSelected);
+        if (selectedRow == null)
+            return;
+
+        await server.DeleteTable(selectedRow.Name);
+        await ReadExistingProfiles();
+    }
+    private async Task ReadExistingProfiles()
+    {
+        var profileNames = await server.GetExistingProfileNames();
+        names.Clear();
+        foreach (var name in profileNames)
+        {
+            names.Add(new CustomeProfileRow { Name = name });
+        }
+
+    }
+    protected override async Task OnInitializedAsync() 
+    {
+        await ReadExistingProfiles();
+    }
+    protected virtual async Task ProfileChossen()
+    {
+        var selectedRow = names.FirstOrDefault(row => row.IsSelected);
+        if (selectedRow == null)
+            return;
+
+        Profile.Data = new List<CustomeGridRow>();
+        var profileData = await server.GetProfileData(selectedRow.Name);
+        if (profileData == null || profileData.Count <= 0)
+            return;
+
+        for (int i = 0; i < profileData.Count; i++)
+        {
+            Profile.Data.Add(new CustomeGridRow { Col1 = Math.Round(profileData[i].Col1, 3), Col2 = Math.Round(profileData[i].Col2, 3), Col3 = Math.Round(profileData[i].Col3, 3) });
+        }
+        Profile.RecalculateData();
+        feedingProfile.RecalculateFeedingProfile();
+        await OnCloseRequested.InvokeAsync();
+    }
+
+    public class CustomeProfileRow
+    {
+        public bool IsSelected { get; set; }
+        public string Name { get; set; }  
+        public ElementReference ElementRef { get; set; } 
+        public string RowId { get; set; } = Guid.NewGuid().ToString();
+    }
+}
